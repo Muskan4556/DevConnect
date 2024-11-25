@@ -52,6 +52,6 @@ export const getMyValidatedUser = async (req: Request, res: Response) => {
 };
 
 export const logoutUser = async (req: Request, res: Response) => {
-  res.cookie("auth_token", "", { maxAge: 0 });
+  res.cookie("auth_token", "", { expires: new Date(0) });
   res.send("Logout successfully");
 };

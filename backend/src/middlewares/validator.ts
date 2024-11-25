@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { body, validationResult } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 
 // Error handler middleware
 const handleValidationErrors = async (
@@ -168,5 +168,37 @@ export const validateMyUserLoginAuthRequest = [
     .isLength({ max: 64 })
     .withMessage("Password must be less than 64 characters"),
 
+  handleValidationErrors,
+];
+
+export const validateSendConnectionRequest = [
+  param("status")
+    .isString()
+    .trim()
+    .notEmpty()
+    .isIn(["ignored", "interested"])
+    .withMessage("Status must be ignored or interested"),
+  param("toUserId")
+    .isString()
+    .trim()
+    .notEmpty()
+    .isLength({ min: 24, max: 24 })
+    .withMessage("ID is not valid"),
+  handleValidationErrors,
+];
+
+export const validateReviewConnectionRequest = [
+  param("status")
+    .isString()
+    .trim()
+    .notEmpty()
+    .isIn(["accepted", "rejected"])
+    .withMessage("Status must be accepted or rejected"),
+  param("requestId")
+    .isString()
+    .trim()
+    .notEmpty()
+    .isLength({ min: 24, max: 24 })
+    .withMessage("ID is not valid"),
   handleValidationErrors,
 ];
