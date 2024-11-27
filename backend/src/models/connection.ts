@@ -2,9 +2,6 @@ import mongoose from "mongoose";
 
 const ConnectionSchema = new mongoose.Schema(
   {
-    // identity of sender and receiver user
-    // status of connection (ignored, interested, accepted,rejected)
-
     fromUserId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

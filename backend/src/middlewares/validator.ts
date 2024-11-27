@@ -171,6 +171,40 @@ export const validateMyUserLoginAuthRequest = [
   handleValidationErrors,
 ];
 
+export const validateMyUserUpdatePasswordRequest = [
+  body("oldPassword")
+    .optional()
+    .isString()
+    .withMessage("Old password must be a string"),
+  body("newPassword")
+    .notEmpty()
+    .withMessage("New password is required")
+    .isStrongPassword()
+    .withMessage(
+      "New password must be strong (min 8 characters, 1 lowercase, 1 uppercase, 1 number, and 1 symbol)"
+    ),
+  handleValidationErrors,
+];
+
+export const validateMyUserForgetPasswordRequest = [
+  body("email")
+    .isEmail()
+    .withMessage("Invalid email format")
+    .trim()
+    .notEmpty()
+    .withMessage("Email is required")
+    .isLength({ min: 6, max: 25 })
+    .withMessage("Email must be between 6 and 25 characters"),
+  body("password")
+    .notEmpty()
+    .withMessage("New password is required")
+    .isStrongPassword()
+    .withMessage(
+      "New password must be strong (min 8 characters, 1 lowercase, 1 uppercase, 1 number, and 1 symbol)"
+    ),
+  handleValidationErrors,
+];
+
 export const validateSendConnectionRequest = [
   param("status")
     .isString()
